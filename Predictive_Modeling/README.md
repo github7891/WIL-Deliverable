@@ -41,11 +41,12 @@ The structure of this project includes a main folder named **project** and the s
 ├─ config.py
 ├─ datasets
 ├─ main.py/ipynb
+├─ viz.ipynb
 ├─ models/
 │  └─model.py
 ├─ src/
 │  ├─ preprocessing.py
-│  └─churn_predictor.py                   
+│  └─ churn_predictor.py                   
 └─ tests/
    └─ test.py    
 ```
