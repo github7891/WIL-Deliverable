@@ -99,19 +99,6 @@ hist = cp.fit_final(X_tr, y_train_full, X_va, y_valid,
 metrics_nn = cp.evaluate(X_te, y_test)
 print(f"(Keras NN)Test AUPRC: {metrics_nn['auprc']:.4f} | Test accuracy: {metrics_nn['accuracy']:.4f}")
 
-model = cp.model
-y_prob = model.predict(X_te)
-precision, recall, thresholds = precision_recall_curve(y_test, y_prob)
-f1 = 2*(precision*recall)/(precision+recall+1e-8)
-
-best_idx = np.argmax(f1)
-best_thr = thresholds[best_idx]
-
-y_pred_f1 = (y_prob >= best_thr).astype(int)
-
-acc_f1 = accuracy_score(y_test, y_pred_f1)
-print(f"Test accuracy (f1 threshold): {acc_f1:.4f}")
-
 # Reload best parameters for fitting (fresh session)
 '''
 Redo preprocessing and transforms, records are saved after tuning
@@ -243,4 +230,5 @@ df_plot.to_csv("datasets/df_plot.csv", index=True)
 remap = {"gender_Male":"Gender", "Dependents_Yes":"Dependents", "PhoneService_Yes":"PhoneService", "MultipleLines_Yes":"MultipleLines", "InternetService_Fiber optic":"InternetService"}
 feature_names = [remap.get(f,f) for f in feature_names]
 with open("datasets/feature_names.json", 'w') as f:
+
     json.dump(feature_names, f, indent=2)
